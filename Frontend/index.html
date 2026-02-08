@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUET Lost & Found Box - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box</h2>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li class="auth-only" style="display: none;"><a href="search.html">Search Items</a></li>
+                <li class="auth-only" style="display: none;"><a href="report-lost.html">Report Lost</a></li>
+                <li class="auth-only" style="display: none;"><a href="report-found.html">Report Found</a></li>
+                <li class="guest-only"><a href="login.html">Login</a></li>
+                <li class="guest-only"><a href="register.html" class="btn-register">Register</a></li>
+                <li class="auth-only" style="display: none;"><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Guest Landing Page (Not Logged In) -->
+    <div id="guestContent">
+        <!-- Hero Section for Guests -->
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1 class="hero-title">CUET Lost & Found Box</h1>
+                <p class="hero-subtitle">A Smart Web-Based Lost and Found Management System</p>
+                <p class="hero-description">
+                    Join our community to report lost or found items, search our database, 
+                    and help reunite people with their belongings. Login or register to get started!
+                </p>
+                <div class="cta-buttons">
+                    <a href="login.html" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem;">
+                        <span class="btn-icon">🔑</span>
+                        Login Now
+                    </a>
+                    <a href="register.html" class="btn btn-secondary" style="padding: 1rem 3rem; font-size: 1.1rem;">
+                        <span class="btn-icon">📝</span>
+                        Create Account
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Register Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Why Register?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <h3>Report Lost Items</h3>
+                        <p>Quickly report items you've lost with detailed descriptions and location information.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <h3>Report Found Items</h3>
+                        <p>Help others by reporting items you've found around campus.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Search Database</h3>
+                        <p>Search through reported items with advanced filters and real-time updates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔔</div>
+                        <h3>Get Matched</h3>
+                        <p>Our smart system matches lost and found items automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Authenticated User Content (Logged In) -->
+    <div id="authContent" style="display: none;">
+        <!-- Hero Section for Authenticated Users -->
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1 class="hero-title">Welcome Back!</h1>
+                <p class="hero-subtitle" id="userGreeting">Ready to help find lost items?</p>
+                <p class="hero-description">
+                    Report lost or found items, search our database, and help reunite people with their belongings.
+                </p>
+                <div class="cta-buttons">
+                    <a href="report-lost.html" class="btn btn-primary">
+                        <span class="btn-icon">📋</span>
+                        Report Lost Item
+                    </a>
+                    <a href="report-found.html" class="btn btn-secondary">
+                        <span class="btn-icon">✅</span>
+                        Report Found Item
+                    </a>
+                    <a href="search.html" class="btn btn-accent">
+                        <span class="btn-icon">🔍</span>
+                        Search Items
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📢</div>
+                    <h3>Report Items</h3>
+                    <p>Found something? Lost something? Report it quickly with detailed descriptions and photos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔎</div>
+                    <h3>Smart Search</h3>
+                    <p>Search by keywords, category, location, or date to find your lost item efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Quick Match</h3>
+                    <p>Our system helps match lost and found items to reunite you with your belongings.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Private</h3>
+                    <p>Contact information is protected and only shared when there's a match.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Items Recovered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Active Reports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Happy Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Items Section -->
+    <section class="recent-items">
+        <div class="container">
+            <h2 class="section-title">Recent Reports</h2>
+            <div class="items-grid" id="recentItemsGrid">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+            <div class="text-center">
+                <a href="search.html" class="btn btn-outline">View All Items</a>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CUET Lost & Found</h3>
+                    <p>Making campus life easier, one found item at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="auth-only" style="display: none;"><a href="search.html">Search</a></li>
+                        <li class="auth-only" style="display: none;"><a href="report-lost.html">Report Lost</a></li>
+                        <li class="auth-only" style="display: none;"><a href="report-found.html">Report Found</a></li>
+                        <li class="guest-only"><a href="login.html">Login</a></li>
+                        <li class="guest-only"><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 support@cuetlostandfound.edu</p>
+                    <p>📞 +880-1234-567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CUET Lost & Found Box. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication status and show appropriate content
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = isAuthenticated();
+            const guestContent = document.getElementById('guestContent');
+            const authContent = document.getElementById('authContent');
+            const authOnlyElements = document.querySelectorAll('.auth-only');
+            const guestOnlyElements = document.querySelectorAll('.guest-only');
+            
+            if (isLoggedIn) {
+                // Show authenticated user content
+                guestContent.style.display = 'none';
+                authContent.style.display = 'block';
+                
+                // Show auth-only nav items
+                authOnlyElements.forEach(el => el.style.display = 'list-item');
+                guestOnlyElements.forEach(el => el.style.display = 'none');
+                
+                // Personalize greeting
+                const session = getCurrentSession();
+                if (session && session.user) {
+                    document.getElementById('userGreeting').textContent = 
+                        `Welcome back, ${session.user.fullName}! Ready to help find lost items?`;
+                }
+                
+                // Add logout functionality
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        logout();
+                    });
+                }
+            } else {
+                // Show guest content
+                guestContent.style.display = 'block';
+                authContent.style.display = 'none';
+                
+                // Show guest-only nav items
+                authOnlyElements.forEach(el => el.style.display = 'none');
+                guestOnlyElements.forEach(el => el.style.display = 'list-item');
+            }
+        });
+    </script>
+</body>
+</html>

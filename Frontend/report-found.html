@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Found Item - CUET Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="feed.html">Feed</a></li>
+                <li><a href="search.html">Search Items</a></li>
+                <li><a href="report-lost.html">Report Lost</a></li>
+                <li><a href="report-found.html" class="active">Report Found</a></li>
+                <li><a href="user-dashboard.html">My Dashboard</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>✅ Report Found Item</h1>
+            <p>Help someone find their lost item by reporting what you found</p>
+        </div>
+    </section>
+
+    <!-- Report Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <div class="form-card">
+                    <form id="foundItemForm" class="report-form">
+                        <!-- Item Name -->
+                        <div class="form-group">
+                            <label for="itemName" class="form-label">
+                                Item Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="itemName" 
+                                name="itemName" 
+                                class="form-input" 
+                                placeholder="e.g., Black Wallet, Airpods"
+                                required
+                            >
+                            <span class="error-message" id="itemNameError"></span>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category" class="form-label">
+                                Category <span class="required">*</span>
+                            </label>
+                            <select id="category" name="category" class="form-input" required>
+                                <option value="">Select Category</option>
+                                <option value="electronics">📱 Electronics</option>
+                                <option value="accessories">👜 Accessories</option>
+                                <option value="clothing">👕 Clothing</option>
+                                <option value="books">📚 Books & Stationery</option>
+                                <option value="documents">📄 Documents</option>
+                                <option value="keys">🔑 Keys & Cards</option>
+                                <option value="sports">⚽ Sports Equipment</option>
+                                <option value="other">🔹 Other</option>
+                            </select>
+                            <span class="error-message" id="categoryError"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description" class="form-label">
+                                Description <span class="required">*</span>
+                            </label>
+                            <textarea 
+                                id="description" 
+                                name="description" 
+                                class="form-input form-textarea" 
+                                rows="4"
+                                placeholder="Describe the item in detail (color, brand, condition, etc.)"
+                                required
+                            ></textarea>
+                            <span class="error-message" id="descriptionError"></span>
+                        </div>
+
+                        <!-- Date Found -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dateFound" class="form-label">
+                                    Date Found <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="date" 
+                                    id="dateFound" 
+                                    name="dateFound" 
+                                    class="form-input"
+                                    required
+                                >
+                                <span class="error-message" id="dateFoundError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="timeFound" class="form-label">
+                                    Approximate Time
+                                </label>
+                                <input 
+                                    type="time" 
+                                    id="timeFound" 
+                                    name="timeFound" 
+                                    class="form-input"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="location" class="form-label">
+                                Location Found <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="location" 
+                                name="location" 
+                                class="form-input" 
+                                placeholder="e.g., Computer Lab, Sports Ground, Building 5"
+                                required
+                            >
+                            <span class="error-message" id="locationError"></span>
+                        </div>
+
+                        <!-- Current Storage Location -->
+                        <div class="form-group">
+                            <label for="storageLocation" class="form-label">
+                                Where is the item now? <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="storageLocation" 
+                                name="storageLocation" 
+                                class="form-input" 
+                                placeholder="e.g., Security Office, With me"
+                                required
+                            >
+                            <span class="error-message" id="storageLocationError"></span>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="form-divider">
+                            <span>Your Contact Information</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName" class="form-label">
+                                    Your Name <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="contactName" 
+                                    name="contactName" 
+                                    class="form-input" 
+                                    placeholder="Full Name"
+                                    required
+                                >
+                                <span class="error-message" id="contactNameError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentId" class="form-label">
+                                    Student ID
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="studentId" 
+                                    name="studentId" 
+                                    class="form-input" 
+                                    placeholder="e.g., 19XXXXXX"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    Email <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-input" 
+                                    placeholder="your.email@example.com"
+                                    required
+                                >
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">
+                                    Phone Number <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    class="form-input" 
+                                    placeholder="+880-1234-567890"
+                                    required
+                                >
+                                <span class="error-message" id="phoneError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-group">
+                            <label for="itemImage" class="form-label">
+                                Upload Image <span class="required">*</span>
+                            </label>
+                            <div class="file-upload-wrapper">
+                                <input 
+                                    type="file" 
+                                    id="itemImage" 
+                                    name="itemImage" 
+                                    class="file-input" 
+                                    accept="image/*"
+                                    required
+                                >
+                                <label for="itemImage" class="file-label">
+                                    <span class="file-icon">📷</span>
+                                    <span class="file-text">Choose Image</span>
+                                </label>
+                                <div class="file-name" id="fileName"></div>
+                            </div>
+                            <span class="error-message" id="itemImageError"></span>
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-large">
+                                Submit Report
+                            </button>
+                            <button type="reset" class="btn btn-outline btn-large">
+                                Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Help Card -->
+                <div class="help-card">
+                    <h3>💡 Tips for Reporting</h3>
+                    <ul>
+                        <li>Upload a clear photo of the found item</li>
+                        <li>Describe distinctive features without revealing all details</li>
+                        <li>Keep the item in a safe, accessible location</li>
+                        <li>Respond promptly to inquiries</li>
+                        <li>Verify ownership before returning the item</li>
+                    </ul>
+                    <div class="help-note">
+                        <strong>Important:</strong> For valuable items or documents, please also inform the campus security office.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CUET Lost & Found</h3>
+                    <p>Making campus life easier, one found item at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search</a></li>
+                        <li><a href="report-lost.html">Report Lost</a></li>
+                        <li><a href="report-found.html">Report Found</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 support@cuetlostandfound.edu</p>
+                    <p>📞 +880-1234-567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CUET Lost & Found Box. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Require authentication before accessing this page
+        if (!isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+        
+        // Add logout functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+    </script>
+    <script src="js/report.js"></script>
+</body>
+</html>

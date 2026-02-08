@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - CUET Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="feed.html">Feed</a></li>
+                <li><a href="search.html">Search Items</a></li>
+                <li><a href="report-lost.html">Report Lost</a></li>
+                <li><a href="report-found.html">Report Found</a></li>
+                <li><a href="user-dashboard.html" class="active">My Dashboard</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>👤 My Dashboard</h1>
+            <p id="userWelcome">Welcome back!</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="user-dashboard-section">
+        <div class="container">
+            <!-- User Info Card -->
+            <div class="user-info-card">
+                <div class="user-avatar">
+                    <span id="userInitials">U</span>
+                </div>
+                <div class="user-details">
+                    <h2 id="userName">User Name</h2>
+                    <p id="userEmail">user@cuet.ac.bd</p>
+                    <span class="user-badge" id="userCategory">Student</span>
+                    <span class="user-badge" id="userDepartment">CSE</span>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="user-stats">
+                <div class="user-stat-card">
+                    <div class="stat-icon pending">📋</div>
+                    <div class="stat-content">
+                        <h3 id="userLostItems">0</h3>
+                        <p>Items Reported Lost</p>
+                    </div>
+                </div>
+                <div class="user-stat-card">
+                    <div class="stat-icon approved">✅</div>
+                    <div class="stat-content">
+                        <h3 id="userFoundItems">0</h3>
+                        <p>Items Reported Found</p>
+                    </div>
+                </div>
+                <div class="user-stat-card">
+                    <div class="stat-icon matched">🤝</div>
+                    <div class="stat-content">
+                        <h3 id="userMatches">0</h3>
+                        <p>Matched Items</p>
+                    </div>
+                </div>
+                <div class="user-stat-card">
+                    <div class="stat-icon total">📊</div>
+                    <div class="stat-content">
+                        <h3 id="userTotalReports">0</h3>
+                        <p>Total Reports</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2 class="section-title">Quick Actions</h2>
+                <div class="action-grid">
+                    <a href="report-lost.html" class="action-card">
+                        <div class="action-icon">📋</div>
+                        <h3>Report Lost Item</h3>
+                        <p>Lost something? Report it here</p>
+                    </a>
+                    <a href="report-found.html" class="action-card">
+                        <div class="action-icon">✅</div>
+                        <h3>Report Found Item</h3>
+                        <p>Found something? Help others</p>
+                    </a>
+                    <a href="search.html" class="action-card">
+                        <div class="action-icon">🔍</div>
+                        <h3>Search Items</h3>
+                        <p>Browse lost and found items</p>
+                    </a>
+                    <a href="#" class="action-card" id="viewProfileBtn">
+                        <div class="action-icon">⚙️</div>
+                        <h3>My Profile</h3>
+                        <p>View and edit your profile</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- My Reports -->
+            <div class="my-reports-section">
+                <h2 class="section-title">My Reports</h2>
+                
+                <div class="reports-tabs">
+                    <button class="reports-tab active" data-tab="lost">
+                        Lost Items <span class="badge" id="lostBadge">0</span>
+                    </button>
+                    <button class="reports-tab" data-tab="found">
+                        Found Items <span class="badge" id="foundBadge">0</span>
+                    </button>
+                </div>
+
+                <!-- Lost Items Tab -->
+                <div id="lostItemsTab" class="tab-pane active">
+                    <div class="items-grid" id="userLostItemsGrid">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                    <div id="noLostItems" class="no-results" style="display: none;">
+                        <div class="no-results-icon">📋</div>
+                        <h3>No lost items reported</h3>
+                        <p>You haven't reported any lost items yet</p>
+                        <a href="report-lost.html" class="btn btn-primary">Report Lost Item</a>
+                    </div>
+                </div>
+
+                <!-- Found Items Tab -->
+                <div id="foundItemsTab" class="tab-pane">
+                    <div class="items-grid" id="userFoundItemsGrid">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                    <div id="noFoundItems" class="no-results" style="display: none;">
+                        <div class="no-results-icon">✅</div>
+                        <h3>No found items reported</h3>
+                        <p>You haven't reported any found items yet</p>
+                        <a href="report-found.html" class="btn btn-secondary">Report Found Item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CUET Lost & Found</h3>
+                    <p>Making campus life easier, one found item at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search</a></li>
+                        <li><a href="report-lost.html">Report Lost</a></li>
+                        <li><a href="report-found.html">Report Found</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 support@cuetlostandfound.edu</p>
+                    <p>📞 +880-1234-567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CUET Lost & Found Box. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Add logout functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+    </script>
+    <script src="js/user-dashboard.js"></script>
+</body>
+</html>

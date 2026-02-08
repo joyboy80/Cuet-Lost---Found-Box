@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Items - CUET Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="feed.html">Feed</a></li>
+                <li><a href="search.html" class="active">Search Items</a></li>
+                <li><a href="report-lost.html">Report Lost</a></li>
+                <li><a href="report-found.html">Report Found</a></li>
+                <li><a href="user-dashboard.html">My Dashboard</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>🔍 Search Lost & Found Items</h1>
+            <p>Find your lost item or browse found items</p>
+        </div>
+    </section>
+
+    <!-- Search & Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <!-- Search Bar -->
+            <div class="search-bar-wrapper">
+                <div class="search-bar">
+                    <span class="search-icon">🔎</span>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Search by item name, description, location..."
+                    >
+                    <button class="search-btn" id="searchBtn">Search</button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-wrapper">
+                <div class="filters">
+                    <!-- Status Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Status:</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="lost">Lost</button>
+                            <button class="filter-btn" data-filter="found">Found</button>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Category:</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option value="electronics">📱 Electronics</option>
+                            <option value="accessories">👜 Accessories</option>
+                            <option value="clothing">👕 Clothing</option>
+                            <option value="books">📚 Books & Stationery</option>
+                            <option value="documents">📄 Documents</option>
+                            <option value="keys">🔑 Keys & Cards</option>
+                            <option value="sports">⚽ Sports Equipment</option>
+                            <option value="other">🔹 Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Date Range:</label>
+                        <div class="date-range">
+                            <input type="date" id="dateFrom" class="filter-input">
+                            <span>to</span>
+                            <input type="date" id="dateTo" class="filter-input">
+                        </div>
+                    </div>
+
+                    <!-- Location Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Location:</label>
+                        <select id="locationFilter" class="filter-select">
+                            <option value="">All Locations</option>
+                            <option value="library">Library</option>
+                            <option value="cafeteria">Cafeteria</option>
+                            <option value="building1">Building 1</option>
+                            <option value="building2">Building 2</option>
+                            <option value="building3">Building 3</option>
+                            <option value="lab">Computer Lab</option>
+                            <option value="sports">Sports Ground</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Clear Filters -->
+                    <button class="clear-filters-btn" id="clearFilters">Clear All Filters</button>
+                </div>
+            </div>
+
+            <!-- Results Info -->
+            <div class="results-info">
+                <p id="resultsCount">Showing <strong>0</strong> items</p>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid" title="Grid View">
+                        <span>▦</span>
+                    </button>
+                    <button class="view-btn" data-view="list" title="List View">
+                        <span>☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-container">
+                <div id="itemsGrid" class="items-grid">
+                    <!-- Items will be populated by JavaScript -->
+                </div>
+
+                <!-- No Results Message -->
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="no-results-icon">🔍</div>
+                    <h3>No items found</h3>
+                    <p>Try adjusting your filters or search terms</p>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading items...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Item Detail Modal -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modalBody">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CUET Lost & Found</h3>
+                    <p>Making campus life easier, one found item at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search</a></li>
+                        <li><a href="report-lost.html">Report Lost</a></li>
+                        <li><a href="report-found.html">Report Found</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 support@cuetlostandfound.edu</p>
+                    <p>📞 +880-1234-567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CUET Lost & Found Box. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Require authentication before accessing this page
+        if (!isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+        
+        // Add logout functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+    </script>
+    <script src="js/search.js"></script>
+</body>
+</html>

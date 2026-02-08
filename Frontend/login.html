@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CUET Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html" class="active">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="auth-container">
+        <div class="auth-wrapper auth-wrapper-centered">
+            <!-- Login Form Card -->
+            <div class="auth-form-container auth-form-centered">
+                <div class="auth-card">
+                    <div class="auth-header-centered">
+                        <div class="auth-icon">🔐</div>
+                        <h2 class="auth-title">Welcome Back</h2>
+                        <p class="auth-description">Login to access your account</p>
+                    </div>
+
+                    <form id="loginForm" class="auth-form">
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email Address <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input" 
+                                placeholder="your.email@cuet.ac.bd"
+                                required
+                                autocomplete="email"
+                            >
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                Password <span class="required">*</span>
+                            </label>
+                            <div class="password-input-wrapper">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    class="form-input" 
+                                    placeholder="Enter your password"
+                                    required
+                                    autocomplete="current-password"
+                                >
+                                <button type="button" class="password-toggle" id="togglePassword">
+                                    <span>👁️</span>
+                                </button>
+                            </div>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
+
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="link forgot-password">Forgot password?</a>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-large btn-block">
+                            Login
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>New to CUET Lost & Found?</span>
+                    </div>
+
+                    <a href="register.html" class="btn btn-outline btn-large btn-block">
+                        Create an Account
+                    </a>
+
+                    <!-- Super Admin Login Notice -->
+                    <div class="admin-notice">
+                        <p><strong>🔒 Super Admin?</strong></p>
+                        <p class="small-text">Use your admin credentials to access the admin dashboard</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
