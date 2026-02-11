@@ -5,24 +5,24 @@
 
 // Department mapping with codes
 const DEPARTMENTS = {
-    '04': 'Civil Engineering',
-    '08': 'Electrical & Electronic Engineering (EEE)',
-    '12': 'Mechanical Engineering',
-    '16': 'Computer Science & Engineering (CSE)',
-    '20': 'Urban & Regional Planning (URP)',
-    '24': 'Architecture',
-    '28': 'Water Resources Engineering',
-    '32': 'Petroleum & Mining Engineering',
-    '36': 'Materials Science & Engineering',
-    '40': 'Mechatronics & Industrial Engineering',
-    '44': 'Electronics & Telecommunication Engineering',
-    '48': 'Biomedical Engineering'
+    '01': 'Civil Engineering (CE)',
+    '02': 'Electrical & Electronic Engineering (EEE)',
+    '03': 'Mechanical Engineering (ME)',
+    '04': 'Computer Science & Engineering (CSE)',
+    '05': 'Urban & Regional Planning (URP)',
+    '06': 'Architecture',
+    '07': 'Petroleum & Mining Engineering (PME)',
+    '08': 'Electronics & Telecommunication Engineering (ETE)',
+    '09': 'Mechatronics & Industrial Engineering (MIE)',
+    '10': 'Water Resources Engineering (WRE)',
+    '11': 'Biomedical Engineering (BME)',
+    '12': 'Materials & Metallurgical Engineering (MME)'
 };
 
 // Super Admin Credentials (Hardcoded - ONE SUPER ADMIN)
 const SUPER_ADMIN = {
-    email: 'admin@cuet.ac.bd',
-    password: 'SuperAdmin@2026',
+    email: 'abir@cuet.ac.bd',
+    password: 'abir1122@1122',
     role: 'super-admin',
     name: 'Super Administrator'
 };
@@ -31,10 +31,8 @@ const SUPER_ADMIN = {
 // Initialize Super Admin in LocalStorage
 // ==========================================
 function initializeSuperAdmin() {
-    const superAdmin = localStorage.getItem('superAdmin');
-    if (!superAdmin) {
-        localStorage.setItem('superAdmin', JSON.stringify(SUPER_ADMIN));
-    }
+    // Always overwrite to ensure credentials stay in sync
+    localStorage.setItem('superAdmin', JSON.stringify(SUPER_ADMIN));
 }
 
 // ==========================================
@@ -43,60 +41,56 @@ function initializeSuperAdmin() {
 function initializeDemoUsers() {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    // Check if demo users already exist
-    if (users.length === 0) {
-        const demoUsers = [
-            {
-                id: 1,
-                fullName: 'Rahim Ahmed',
-                email: 'u221601@student.cuet.ac.bd',
-                password: 'Student@123',
-                category: 'student',
-                department: '16',
-                batch: '22',
-                studentId: '01',
-                status: 'active',
-                role: 'user',
-                registeredAt: new Date().toISOString()
-            },
-            {
-                id: 2,
-                fullName: 'Fatima Akter',
-                email: 'u221602@student.cuet.ac.bd',
-                password: 'Student@123',
-                category: 'student',
-                department: '16',
-                batch: '22',
-                studentId: '02',
-                status: 'active',
-                role: 'user',
-                registeredAt: new Date().toISOString()
-            },
-            {
-                id: 3,
-                fullName: 'Dr. Kamal Hossain',
-                email: 'kamal@teacher.cuet.ac.bd',
-                password: 'Teacher@123',
-                category: 'teacher',
-                department: '16',
-                status: 'active',
-                role: 'user',
-                registeredAt: new Date().toISOString()
-            },
-            {
-                id: 4,
-                fullName: 'Nasrin Sultana',
-                email: 'nasrin@officers.cuet.ac.bd',
-                password: 'Staff@123',
-                category: 'staff',
-                department: '16',
-                status: 'active',
-                role: 'user',
-                registeredAt: new Date().toISOString()
-            }
-        ];
-        
-        localStorage.setItem('users', JSON.stringify(demoUsers));
+    // Always ensure demo users exist (add them if missing)
+    const demoUsers = [
+        {
+            id: 1,
+            fullName: 'Demo Student',
+            email: 'u2204094@student.cuet.ac.bd',
+            password: '2204094',
+            category: 'student',
+            department: '04',
+            batch: '22',
+            studentId: '094',
+            status: 'active',
+            role: 'user',
+            registeredAt: new Date().toISOString()
+        },
+        {
+            id: 2,
+            fullName: 'Dr. Kamal Hossain',
+            email: 'kamal@cuet.ac.bd',
+            password: 'Teacher@123',
+            category: 'teacher',
+            department: '04',
+            status: 'active',
+            role: 'user',
+            registeredAt: new Date().toISOString()
+        },
+        {
+            id: 3,
+            fullName: 'Nasrin Sultana',
+            email: 'nasrin@officers.cuet.ac.bd',
+            password: 'Staff@123',
+            category: 'staff',
+            department: '04',
+            status: 'active',
+            role: 'user',
+            registeredAt: new Date().toISOString()
+        }
+    ];
+    
+    // Add any missing demo users to existing list
+    let updated = false;
+    demoUsers.forEach(demo => {
+        if (!users.find(u => u.email === demo.email)) {
+            users.push(demo);
+            updated = true;
+        }
+    });
+    
+    if (updated || users.length === 0) {
+        localStorage.setItem('users', JSON.stringify(users.length === 0 ? demoUsers : users));
     }
 }
 
@@ -118,8 +112,8 @@ function initializeDemoPosts() {
                 description: 'Lost my black leather wallet containing important cards and some cash. It has a small scratch on the back. Last seen near the CSE Building.',
                 location: 'CSE Building, 2nd Floor',
                 dateLost: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-                contactName: 'Rahim Ahmed',
-                email: 'u221601@student.cuet.ac.bd',
+                contactName: 'Demo Student',
+                email: 'u2204094@student.cuet.ac.bd',
                 phone: '+880 1712-345678',
                 image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=300&fit=crop',
                 status: 'approved',
@@ -132,8 +126,8 @@ function initializeDemoPosts() {
                 description: 'Lost my blue Nike backpack with laptop and books inside. Has a small CUET keychain attached. Please contact if found!',
                 location: 'Library, 1st Floor',
                 dateLost: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-                contactName: 'Fatima Akter',
-                email: 'u221602@student.cuet.ac.bd',
+                contactName: 'Demo Student',
+                email: 'u2204094@student.cuet.ac.bd',
                 phone: '+880 1823-456789',
                 image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop',
                 status: 'approved',
@@ -147,7 +141,7 @@ function initializeDemoPosts() {
                 location: 'EEE Building Cafeteria',
                 dateLost: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
                 contactName: 'Dr. Kamal Hossain',
-                email: 'kamal@teacher.cuet.ac.bd',
+                email: 'kamal@cuet.ac.bd',
                 phone: '+880 1934-567890',
                 image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=300&fit=crop',
                 status: 'approved',
@@ -179,8 +173,8 @@ function initializeDemoPosts() {
                 description: 'Found a red umbrella in the lecture hall. It was left behind after class. Has a wooden handle.',
                 location: 'Lecture Hall 301',
                 dateFound: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
-                contactName: 'Rahim Ahmed',
-                email: 'u221601@student.cuet.ac.bd',
+                contactName: 'Demo Student',
+                email: 'u2204094@student.cuet.ac.bd',
                 phone: '+880 1712-345678',
                 image: 'https://images.unsplash.com/photo-1558805111-86190f18cd89?w=400&h=300&fit=crop',
                 status: 'approved',
@@ -194,8 +188,8 @@ function initializeDemoPosts() {
                 description: 'Found a calculus textbook (Anton 11th Edition) in the library. Has some notes and highlights inside. Owner\'s name might be written inside.',
                 location: 'Central Library',
                 dateFound: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-                contactName: 'Fatima Akter',
-                email: 'u221602@student.cuet.ac.bd',
+                contactName: 'Demo Student',
+                email: 'u2204094@student.cuet.ac.bd',
                 phone: '+880 1823-456789',
                 image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop',
                 status: 'approved',
@@ -210,7 +204,7 @@ function initializeDemoPosts() {
                 location: 'University Canteen',
                 dateFound: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
                 contactName: 'Dr. Kamal Hossain',
-                email: 'kamal@teacher.cuet.ac.bd',
+                email: 'kamal@cuet.ac.bd',
                 phone: '+880 1934-567890',
                 image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop',
                 status: 'approved',
@@ -230,22 +224,40 @@ function initializeDemoPosts() {
 
 // Validate Student Email
 function validateStudentEmail(email, departmentCode) {
-    // Format: u22DDSS@student.cuet.ac.bd
-    // u = prefix, 22 = batch, DD = dept code, SS = student ID
+    // Format: u{batch}{deptId}{3-digit-id}@student.cuet.ac.bd
+    // Example: u2204094@student.cuet.ac.bd (batch 22, dept 04=CSE, id 094)
     
-    const studentEmailRegex = /^u(\d{2})(\d{2})(\d{2})@student\.cuet\.ac\.bd$/;
+    const studentEmailRegex = /^u(\d{2})(\d{2})(\d{3})@student\.cuet\.ac\.bd$/;
     const match = email.match(studentEmailRegex);
     
     if (!match) {
         return {
             valid: false,
-            error: 'Student email must be in format: u22DDSS@student.cuet.ac.bd'
+            error: 'Student email must be in format: u{batch}{dept}{id}@student.cuet.ac.bd (e.g., u2204094@student.cuet.ac.bd)'
         };
     }
     
     const [, batch, emailDeptCode, studentId] = match;
     
-    // Verify department code matches
+    // Validate batch year (20-25)
+    const batchNum = parseInt(batch);
+    if (batchNum < 20 || batchNum > 25) {
+        return {
+            valid: false,
+            error: 'Invalid batch year in email. Must be between 20 and 25.'
+        };
+    }
+    
+    // Validate department code (01-12)
+    const deptNum = parseInt(emailDeptCode);
+    if (deptNum < 1 || deptNum > 12) {
+        return {
+            valid: false,
+            error: 'Invalid department code in email. Must be between 01 and 12.'
+        };
+    }
+    
+    // Verify department code matches selected department
     if (emailDeptCode !== departmentCode) {
         return {
             valid: false,
@@ -263,13 +275,13 @@ function validateStudentEmail(email, departmentCode) {
 
 // Validate Teacher Email
 function validateTeacherEmail(email) {
-    // Format: name@teacher.cuet.ac.bd
-    const teacherEmailRegex = /^[a-zA-Z0-9._-]+@teacher\.cuet\.ac\.bd$/;
+    // Format: name@cuet.ac.bd
+    const teacherEmailRegex = /^[a-zA-Z0-9._-]+@cuet\.ac\.bd$/;
     
     if (!teacherEmailRegex.test(email)) {
         return {
             valid: false,
-            error: 'Teacher email must be in format: name@teacher.cuet.ac.bd'
+            error: 'Teacher email must be in format: name@cuet.ac.bd'
         };
     }
     
@@ -342,15 +354,15 @@ if (document.getElementById('registerForm')) {
         const category = this.value;
         
         if (category === 'student') {
-            emailHint.innerHTML = '<strong>Format:</strong> u22DDSS@student.cuet.ac.bd<br><small>Example: u2204094@student.cuet.ac.bd (batch 22, dept 04, student 94)</small>';
+            emailHint.innerHTML = '<strong>Format:</strong> u{batch}{deptId}{3-digit-id}@student.cuet.ac.bd<br><small>Example: u2204094@student.cuet.ac.bd (batch 22, dept 04=CSE, id 094)</small>';
             departmentHint.style.display = 'block';
             departmentSelect.setAttribute('required', 'required');
         } else if (category === 'teacher') {
-            emailHint.innerHTML = '<strong>Format:</strong> name@teacher.cuet.ac.bd<br><small>Example: suhenaalam@teacher.cuet.ac.bd</small>';
+            emailHint.innerHTML = '<strong>Format:</strong> name@cuet.ac.bd<br><small>Example: abir@cuet.ac.bd</small>';
             departmentHint.style.display = 'none';
             departmentSelect.removeAttribute('required');
         } else if (category === 'staff') {
-            emailHint.innerHTML = '<strong>Format:</strong> name@officers.cuet.ac.bd<br><small>Example: alam@officers.cuet.ac.bd</small>';
+            emailHint.innerHTML = '<strong>Format:</strong> name@officers.cuet.ac.bd<br><small>Example: aminul@officers.cuet.ac.bd</small>';
             departmentHint.style.display = 'none';
             departmentSelect.removeAttribute('required');
         } else {
