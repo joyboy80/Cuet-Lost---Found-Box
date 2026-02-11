@@ -9,32 +9,74 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    
+
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            
-            // Animate hamburger icon
+        // Create overlay element for mobile menu backdrop
+        const overlay = document.createElement('div');
+        overlay.className = 'nav-overlay';
+        overlay.style.cssText = `
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        `;
+        document.body.appendChild(overlay);
+
+        function openMenu() {
+            navMenu.classList.add('active');
+            overlay.style.display = 'block';
+            requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+            document.body.style.overflow = 'hidden';
             const spans = hamburger.querySelectorAll('span');
+            spans[0].style.transform = 'rotate(45deg) translateY(10px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
+        }
+
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 300);
+            document.body.style.overflow = '';
+            const spans = hamburger.querySelectorAll('span');
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '';
+            spans[2].style.transform = '';
+        }
+
+        hamburger.addEventListener('click', function() {
             if (navMenu.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translateY(10px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
+                closeMenu();
             } else {
-                spans[0].style.transform = '';
-                spans[1].style.opacity = '';
-                spans[2].style.transform = '';
+                openMenu();
             }
         });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                navMenu.classList.remove('active');
-                const spans = hamburger.querySelectorAll('span');
-                spans[0].style.transform = '';
-                spans[1].style.opacity = '';
-                spans[2].style.transform = '';
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking a nav link
+        navMenu.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Close menu on window resize (if viewport becomes desktop size)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                closeMenu();
             }
         });
     }

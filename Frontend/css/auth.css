@@ -669,13 +669,18 @@
         grid-template-columns: 1fr;
         gap: var(--spacing-2xl);
     }
-    
+
     .auth-info {
         text-align: center;
     }
-    
+
     .auth-info h1 {
         font-size: 2.5rem;
+    }
+
+    .info-features {
+        max-width: 500px;
+        margin: 0 auto var(--spacing-2xl);
     }
 }
 
@@ -683,60 +688,195 @@
     .auth-card {
         padding: var(--spacing-xl);
     }
-    
+
     .auth-info h1 {
         font-size: 2rem;
     }
-    
+
     .auth-subtitle {
-        font-size: 1.125rem;
+        font-size: 1rem;
     }
-    
+
+    .auth-icon {
+        font-size: 3rem;
+    }
+
+    /* User dashboard */
     .user-info-card {
         flex-direction: column;
         text-align: center;
+        padding: var(--spacing-xl);
     }
-    
+
     .user-avatar {
         width: 80px;
         height: 80px;
         font-size: 2rem;
     }
-    
+
+    .user-details h2 {
+        font-size: 1.5rem;
+    }
+
+    .user-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .user-stat-card {
+        padding: var(--spacing-md);
+    }
+
+    /* Grids */
     .department-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .action-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Welcome card */
+    .welcome-card {
+        padding: var(--spacing-xl);
+    }
+
+    .welcome-card h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Matching */
+    .matching-container {
+        padding: var(--spacing-xl);
+    }
+
+    .reports-tabs {
+        flex-direction: column;
     }
 }
 
 @media (max-width: 480px) {
     .auth-container {
-        padding: var(--spacing-lg) 0;
+        padding: var(--spacing-md) 0;
     }
-    
+
+    .auth-wrapper {
+        padding: 0 var(--spacing-md);
+    }
+
     .auth-card {
         padding: var(--spacing-lg);
     }
-    
+
     .auth-title {
         font-size: 1.5rem;
     }
-    
+
+    .auth-description {
+        font-size: 0.95rem;
+    }
+
+    .auth-icon {
+        font-size: 2.5rem;
+    }
+
     .form-options {
         flex-direction: column;
         align-items: start;
         gap: var(--spacing-sm);
     }
-    
+
     .user-stats {
         grid-template-columns: 1fr;
     }
-    
-    .reports-tabs {
+
+    .user-stat-card .stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+
+    .user-stat-card .stat-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-icon {
+        font-size: 2.25rem;
+    }
+
+    .action-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .welcome-card h2 {
+        font-size: 1.25rem;
+    }
+
+    .welcome-card p {
+        font-size: 1rem;
+    }
+
+    .matching-container {
+        padding: var(--spacing-lg);
+    }
+
+    .matching-info p {
+        font-size: 1rem;
+    }
+
+    /* Info items */
+    .info-item {
+        padding: var(--spacing-md);
+    }
+
+    .info-icon {
+        font-size: 1.5rem;
+    }
+
+    /* Badges */
+    .user-badge {
+        font-size: 0.8rem;
+    }
+
+    /* Department cards */
+    .department-card {
+        padding: var(--spacing-md);
+    }
+
+    .dept-count {
+        font-size: 1.5rem;
+    }
+
+    .dept-breakdown {
         flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+}
+
+@media (max-width: 360px) {
+    .auth-card {
+        padding: var(--spacing-md);
+    }
+
+    .auth-title {
+        font-size: 1.25rem;
+    }
+
+    .user-info-card {
+        padding: var(--spacing-md);
+    }
+
+    .user-details h2 {
+        font-size: 1.25rem;
+    }
+
+    .user-avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 1.5rem;
     }
 }
 

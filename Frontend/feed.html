@@ -41,7 +41,7 @@
     <!-- Feed Filters -->
     <section class="feed-filters">
         <div class="container">
-            <div class="filter-bar" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; background: linear-gradient(135deg, rgba(30, 30, 50, 0.8) 0%, rgba(40, 40, 70, 0.8) 100%); backdrop-filter: blur(10px); border: 2px solid rgba(167, 139, 250, 0.3); padding: 1.5rem; border-radius: var(--radius-2xl); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); margin-bottom: 2rem;">
+            <div class="filter-bar">
                 <button class="filter-btn active" data-filter="all">
                     🔄 All Posts
                 </button>
@@ -51,7 +51,7 @@
                 <button class="filter-btn" data-filter="found">
                     ✅ Found Items
                 </button>
-                <select id="categoryFilter" style="padding: 0.75rem 1rem; border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 8px; font-size: 0.95rem; background: rgba(40, 40, 70, 0.5); color: #ffffff; font-weight: 600;">
+                <select id="categoryFilter" class="filter-select">
                     <option value="">All Categories</option>
                     <option value="electronics">Electronics</option>
                     <option value="documents">Documents</option>
@@ -63,7 +63,7 @@
                     <option value="sports">Sports Equipment</option>
                     <option value="other">Other</option>
                 </select>
-                <select id="sortFilter" style="padding: 0.75rem 1rem; border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 8px; font-size: 0.95rem; margin-left: auto; background: rgba(40, 40, 70, 0.5); color: #ffffff; font-weight: 600;">
+                <select id="sortFilter" class="filter-select sort-select">
                     <option value="recent">Most Recent</option>
                     <option value="oldest">Oldest First</option>
                 </select>
@@ -79,16 +79,16 @@
             </div>
             
             <!-- No Posts Message -->
-            <div id="noPostsMessage" style="display: none; text-align: center; padding: 4rem 2rem;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">📭</div>
-                <h3 style="color: var(--gray-700); margin-bottom: 0.5rem;">No Posts Found</h3>
-                <p style="color: var(--gray-500);">Try adjusting your filters or be the first to post!</p>
+            <div id="noPostsMessage" class="no-results" style="display: none;">
+                <div class="no-results-icon">📭</div>
+                <h3>No Posts Found</h3>
+                <p>Try adjusting your filters or be the first to post!</p>
             </div>
-            
+
             <!-- Loading Indicator -->
-            <div id="loadingIndicator" style="text-align: center; padding: 2rem;">
-                <div class="spinner" style="margin: 0 auto;"></div>
-                <p style="color: var(--gray-600); margin-top: 1rem;">Loading posts...</p>
+            <div id="loadingIndicator" class="loading-indicator">
+                <div class="spinner"></div>
+                <p>Loading posts...</p>
             </div>
         </div>
     </section>
