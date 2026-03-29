@@ -71,7 +71,7 @@ function initializeDemoUsers() {
             id: 3,
             fullName: 'Nasrin Sultana',
             email: 'nasrin@officers.cuet.ac.bd',
-            password: 'Staff@123',
+            password: 'nasrin@officers.cuet.ac.bd',
             category: 'staff',
             department: '04',
             status: 'active',
