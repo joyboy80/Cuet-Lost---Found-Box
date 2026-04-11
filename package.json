@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start:backend": "node Backend/server.js",
+    "dev:backend": "node --watch Backend/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CUET Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Section -->
+    <div class="auth-container">
+        <div class="auth-wrapper">
+            <!-- Left Side - Info -->
+            <div class="auth-info">
+                <h1>Join CUET Lost & Found</h1>
+                <p class="auth-subtitle">Create your account to report and find lost items on campus</p>
+                
+                <div class="info-features">
+                    <div class="info-item">
+                        <span class="info-icon">📋</span>
+                        <div>
+                            <h3>Report Items</h3>
+                            <p>Easily report lost or found items</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🔍</span>
+                        <div>
+                            <h3>Smart Search</h3>
+                            <p>Find your items with advanced filters</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🤝</span>
+                        <div>
+                            <h3>Quick Match</h3>
+                            <p>Get notified when items are matched</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="auth-footer-text">
+                    Already have an account? <a href="login.html">Login here</a>
+                </div>
+            </div>
+
+            <!-- Right Side - Form -->
+            <div class="auth-form-container">
+                <div class="auth-card">
+                    <h2 class="auth-title">Create Account</h2>
+                    <p class="auth-description">Fill in your details to get started</p>
+
+                    <form id="registerForm" class="auth-form">
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label for="fullName" class="form-label">
+                                Full Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="fullName" 
+                                name="fullName" 
+                                class="form-input" 
+                                placeholder="Enter your full name"
+                                required
+                            >
+                            <span class="error-message" id="fullNameError"></span>
+                        </div>
+
+                        <!-- Role -->
+                        <div class="form-group">
+                            <label for="role" class="form-label">
+                                Role <span class="required">*</span>
+                            </label>
+                            <select id="role" name="role" class="form-input" required>
+                                <option value="">Select Role</option>
+                                <option value="student">👨‍🎓 Student</option>
+                                <option value="teacher">👨‍🏫 Teacher</option>
+                                <option value="staff">👔 Staff</option>
+                            </select>
+                            <span class="error-message" id="roleError"></span>
+                        </div>
+
+                        <!-- Department (Shows for all, required for students) -->
+                        <div class="form-group" id="departmentGroup">
+                            <label for="department" class="form-label">
+                                Department <span class="required" id="deptRequired">*</span>
+                            </label>
+                            <select id="department" name="department" class="form-input">
+                                <option value="">Select Department</option>
+                                <option value="01">Civil Engineering (CE)</option>
+                                <option value="02">Electrical & Electronic Engineering (EEE)</option>
+                                <option value="03">Mechanical Engineering (ME)</option>
+                                <option value="04">Computer Science & Engineering (CSE)</option>
+                                <option value="05">Urban & Regional Planning (URP)</option>
+                                <option value="06">Architecture</option>
+                                <option value="07">Petroleum & Mining Engineering (PME)</option>
+                                <option value="08">Electronics & Telecommunication Engineering (ETE)</option>
+                                <option value="09">Mechatronics & Industrial Engineering (MIE)</option>
+                                <option value="10">Water Resources Engineering (WRE)</option>
+                                <option value="11">Biomedical Engineering (BME)</option>
+                                <option value="12">Materials & Metallurgical Engineering (MME)</option>
+                            </select>
+                            <span class="error-message" id="departmentError"></span>
+                            <div class="input-hint" id="departmentHint" style="display: none;">
+                                <strong>For Students:</strong> Your email department code must match this selection
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                CUET Email <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input" 
+                                placeholder="e.g. u2204094@student.cuet.ac.bd"
+                                required
+                            >
+                            <span class="error-message" id="emailError"></span>
+                            <div class="input-hint" id="emailHint">
+                                Select category first to see email format
+                            </div>
+                        </div>
+
+                        <!-- Student ID (Student users only) -->
+                        <div class="form-group" id="studentIDGroup" style="display: none;">
+                            <label for="studentID" class="form-label">
+                                Student ID <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="studentID" 
+                                name="studentID" 
+                                class="form-input" 
+                                placeholder="e.g. 2204094"
+                            >
+                            <span class="error-message" id="studentIDError"></span>
+                            <div class="input-hint">
+                                For students, this should match your CUET ID pattern.
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                Password <span class="required">*</span>
+                            </label>
+                            <div class="password-input-wrapper">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    class="form-input" 
+                                    placeholder="Create a strong password"
+                                    required
+                                >
+                                <button type="button" class="password-toggle" id="togglePassword">
+                                    <span>👁️</span>
+                                </button>
+                            </div>
+                            <span class="error-message" id="passwordError"></span>
+                            <div class="password-strength" id="passwordStrength"></div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">
+                                Confirm Password <span class="required">*</span>
+                            </label>
+                            <div class="password-input-wrapper">
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword" 
+                                    class="form-input" 
+                                    placeholder="Re-enter your password"
+                                    required
+                                >
+                                <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                                    <span>👁️</span>
+                                </button>
+                            </div>
+                            <span class="error-message" id="confirmPasswordError"></span>
+                        </div>
+
+                        <!-- Terms & Conditions -->
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agreeTerms" required>
+                                <span>I agree to the <a href="#" class="link">Terms and Conditions</a></span>
+                            </label>
+                            <span class="error-message" id="agreeTermsError"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-large btn-block">
+                            Create Account
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>Already have an account?</span>
+                    </div>
+
+                    <a href="login.html" class="btn btn-outline btn-large btn-block">
+                        Login to Your Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script type="module" src="js/register.js"></script>
+</body>
+</html>
