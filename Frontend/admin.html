@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Items - CUET Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="resources/cuetlogo.png" alt="CUET Logo" class="logo-img">
+                <h2>CUET Lost & Found Box - Admin</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="super-admin.html">Dashboard</a></li>
+                <li><a href="admin.html" class="active">Manage Items</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);">
+        <div class="container">
+            <h1>📋 Manage Items</h1>
+            <p>Review, approve, and manage lost & found item reports</p>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <section class="admin-dashboard" style="padding: var(--spacing-3xl) 0; background: transparent; min-height: calc(100vh - 300px);">
+        <div class="container">
+            <!-- Statistics Cards -->
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="stat-icon pending">⏳</div>
+                    <div class="stat-content">
+                        <h3 id="pendingCount">0</h3>
+                        <p>Pending</p>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-icon approved">✅</div>
+                    <div class="stat-content">
+                        <h3 id="approvedCount">0</h3>
+                        <p>Approved</p>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-icon matched">🤝</div>
+                    <div class="stat-content">
+                        <h3 id="matchedCount">0</h3>
+                        <p>Matched</p>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-icon total">📊</div>
+                    <div class="stat-content">
+                        <h3 id="totalCount">0</h3>
+                        <p>Total Items</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="pending">
+                    Pending <span class="badge" id="pendingBadge">0</span>
+                </button>
+                <button class="admin-tab" data-tab="approved">
+                    Approved <span class="badge" id="approvedBadge">0</span>
+                </button>
+                <button class="admin-tab" data-tab="rejected">
+                    Rejected <span class="badge" id="rejectedBadge">0</span>
+                </button>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="admin-filters">
+                <div class="filter-row">
+                    <input type="text" id="adminSearchInput" class="filter-input" placeholder="Search items by name, description, or location...">
+                    <select id="adminCategoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="books">Books</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="bags">Bags</option>
+                        <option value="keys">Keys & ID Cards</option>
+                        <option value="sports">Sports Equipment</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <select id="adminStatusFilter" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="lost">Lost</option>
+                        <option value="found">Found</option>
+                    </select>
+                    <button class="btn btn-outline" id="adminSearchBtn">Search</button>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Pending Tab -->
+                <div id="pendingTab" class="tab-pane active">
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Item Name</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Reporter</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pendingTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                        <div id="noPending" class="no-data" style="display: none;">
+                            <p>No pending items to review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approved Tab -->
+                <div id="approvedTab" class="tab-pane">
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Item Name</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="approvedTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                        <div id="noApproved" class="no-data" style="display: none;">
+                            <p>No approved items</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rejected Tab -->
+                <div id="rejectedTab" class="tab-pane">
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Item Name</th>
+                                    <th>Category</th>
+                                    <th>Rejection Reason</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rejectedTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                        <div id="noRejected" class="no-data" style="display: none;">
+                            <p>No rejected items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Item Detail Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="adminModalBody">
+                <!-- Item details populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Rejection Reason Modal -->
+    <div id="rejectionModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="modal-close" id="rejectModalClose">&times;</span>
+            <div style="padding: 2rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--gray-900);">Reject Item</h2>
+                <p style="color: var(--gray-600); margin-bottom: 1.5rem;">Please provide a reason for rejecting this item.</p>
+                <textarea 
+                    id="rejectionReason" 
+                    class="form-input" 
+                    rows="4" 
+                    placeholder="Enter rejection reason..."
+                    style="width: 100%; resize: vertical;"
+                ></textarea>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="btn btn-danger" id="confirmReject" style="flex: 1;">Confirm Rejection</button>
+                    <button class="btn btn-outline" id="cancelReject" style="flex: 1;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 CUET Lost & Found Box - Admin Panel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
