@@ -45,6 +45,41 @@ const setAuthCookie = (res, token) => {
   res.cookie("authToken", token, getCookieConfig());
 };
 
+const sendVerificationEmail = async (userEmail, name) => {
+  const url = 'http://localhost:5001/api/verify-email';
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: userEmail,
+      userName: name
+    }),
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('OTP Sent Successfully:', data.otp);
+      // Logic to show OTP input field to student goes here
+      return data.otp;
+    } else {
+      console.error('API Error:', data.error);
+      alert('Failed to send email: ' + data.error);
+    }
+  } catch (error) {
+    console.error('Network Error:', error);
+    alert('Could not connect to the Mail Server');
+  }
+};
+
+// Example Usage:
+// sendVerificationEmail('u2204015@student.cuet.ac.bd', 'Joy');
+
 export const register = asyncHandler(async (req, res) => {
   const { name, email, studentID, password, role, department } = req.body;
 
@@ -91,6 +126,13 @@ export const register = asyncHandler(async (req, res) => {
       ? normalizedDepartment || deriveStudentDepartmentCode(normalizedEmail, studentID)
       : normalizedDepartment;
 
+  try {
+    sendVerificationEmail(normalizedEmail, name);
+    console.log("mail sent successful", otp)
+  } catch (error) {
+    console.log("email send error ", error)
+  }
+
   const user = await User.create({
     name,
     email: normalizedEmail,
@@ -99,6 +141,7 @@ export const register = asyncHandler(async (req, res) => {
     ...(normalizedRole === "student" && studentID ? { studentID } : {}),
     password,
     systemRole: "user",
+    verified: false
   });
 
   const token = createToken(user._id, user.role);
@@ -117,6 +160,7 @@ export const register = asyncHandler(async (req, res) => {
       role: user.role,
       systemRole: user.systemRole,
       status: user.status,
+      verified: user.verified
     },
   });
 });

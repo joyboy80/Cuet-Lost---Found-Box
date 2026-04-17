@@ -137,11 +137,13 @@
                     <div class="items-grid" id="userLostItemsGrid">
                         <!-- Items will be populated by JavaScript -->
                     </div>
-                    <div id="noLostItems" class="no-results" style="display: none;">
+                    <div id="noLostItems" class="no-results dashboard-empty-state" style="display: none;">
                         <div class="no-results-icon">📋</div>
-                        <h3>No lost items reported</h3>
+                        <h3>No Lost Items Reported</h3>
                         <p>You haven't reported any lost items yet</p>
-                        <a href="report-lost.html" class="btn btn-primary">Report Lost Item</a>
+                        <div class="dashboard-empty-state-actions">
+                            <a href="report-lost.html" class="btn dashboard-empty-state-action">Report Lost Item</a>
+                        </div>
                     </div>
                 </div>
 
@@ -150,11 +152,13 @@
                     <div class="items-grid" id="userFoundItemsGrid">
                         <!-- Items will be populated by JavaScript -->
                     </div>
-                    <div id="noFoundItems" class="no-results" style="display: none;">
+                    <div id="noFoundItems" class="no-results dashboard-empty-state" style="display: none;">
                         <div class="no-results-icon">✅</div>
-                        <h3>No found items reported</h3>
+                        <h3>No Found Items Reported</h3>
                         <p>You haven't reported any found items yet</p>
-                        <a href="report-found.html" class="btn btn-secondary">Report Found Item</a>
+                        <div class="dashboard-empty-state-actions">
+                            <a href="report-found.html" class="btn btn-secondary">Report Found Item</a>
+                        </div>
                     </div>
                 </div>
             </div>
