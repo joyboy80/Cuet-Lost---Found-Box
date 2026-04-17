@@ -34,8 +34,13 @@ const itemSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Approved"],
+      enum: ["Pending", "Approved", "Rejected"],
       default: "Pending",
+    },
+    rejectionReason: {
+      type: String,
+      default: "",
+      trim: true,
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,

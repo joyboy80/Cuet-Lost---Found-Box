@@ -47,6 +47,12 @@ if (loginForm) {
                     throw new Error(result.message || "Invalid email or password.");
                 }
 
+                if (response.status === 403 && (result.message || "").toLowerCase().includes("verify")) {
+                    const emailQuery = encodeURIComponent(emailValue);
+                    window.location.href = `verify-email.html?email=${emailQuery}`;
+                    return;
+                }
+
                 if (response.status === 405) {
                     throw new Error("Login endpoint not reachable. Open the app from http://localhost:5000/login.html");
                 }

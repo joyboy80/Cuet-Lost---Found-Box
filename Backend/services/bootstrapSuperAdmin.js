@@ -30,6 +30,8 @@ export const ensureDefaultSuperAdmin = async () => {
       password,
       role: "teacher",
       systemRole: "super-admin",
+      status: "active",
+      verified: true,
     });
 
     console.log(`Default super-admin created: ${email}`);
@@ -48,12 +50,24 @@ export const ensureDefaultSuperAdmin = async () => {
     shouldSave = true;
   }
 
+  if (existingUser.status !== "active") {
+    existingUser.status = "active";
+    shouldSave = true;
+  }
+
+  if (existingUser.verified !== true) {
+    existingUser.verified = true;
+    shouldSave = true;
+  }
+
   if (!existingUser.name || existingUser.name.trim() !== name) {
     existingUser.name = name;
     shouldSave = true;
   }
 
-  const isPasswordValid = await existingUser.comparePassword(password);
+  const isPasswordValid = existingUser.password
+    ? await existingUser.comparePassword(password)
+    : false;
   if (!isPasswordValid) {
     existingUser.password = password;
     shouldSave = true;

@@ -661,6 +661,18 @@
     color: var(--white);
 }
 
+.otp-card {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.otp-input {
+    text-align: center;
+    letter-spacing: 0.35rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
 .dashboard-empty-state {
     background: linear-gradient(135deg, rgba(30, 30, 50, 0.8) 0%, rgba(40, 40, 70, 0.8) 100%);
     border: 2px solid rgba(167, 139, 250, 0.3);

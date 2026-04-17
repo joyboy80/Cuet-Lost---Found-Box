@@ -58,7 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(result.message || 'Failed to load items.');
             }
 
-            allPosts = (result.data || []).map(normalizeItem);
+            allPosts = (result.data || [])
+                .map(normalizeItem)
+                .filter((item) => item.status === 'approved');
             applyFilters();
         } catch (error) {
             allPosts = [];

@@ -13,10 +13,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const frontendDir = path.resolve(__dirname, "../Frontend");
 
-const configuredOrigins = (process.env.CORS_ORIGIN || "")
+const defaultOrigins = [
+  "http://127.0.0.1:5500",
+  "http://localhost:5500",
+  "http://127.0.0.1:5000",
+  "http://localhost:5000",
+];
+
+const envOrigins = (process.env.CORS_ORIGIN || "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
+
+const configuredOrigins = [...new Set([...defaultOrigins, ...envOrigins])];
 
 app.use(
   cors({

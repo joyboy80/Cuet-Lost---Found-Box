@@ -63,6 +63,20 @@ const userSchema = new mongoose.Schema(
       enum: ["active", "blocked"],
       default: "active",
     },
+    verified: {
+      type: Boolean,
+      default: true,
+    },
+    verificationOtpHash: {
+      type: String,
+      default: "",
+      select: false,
+    },
+    verificationOtpExpiresAt: {
+      type: Date,
+      default: null,
+      select: false,
+    },
   },
   {
     timestamps: true,

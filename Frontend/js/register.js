@@ -159,7 +159,8 @@ if (registerForm) {
             }
 
             setTimeout(() => {
-                window.location.href = "login.html";
+                const emailQuery = encodeURIComponent(email);
+                window.location.href = `verify-email.html?email=${emailQuery}`;
             }, 1000);
         } catch (error) {
             if (typeof showMessage === "function") {

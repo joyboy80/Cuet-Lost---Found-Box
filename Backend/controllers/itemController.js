@@ -19,6 +19,7 @@ const sanitizeItem = (itemDoc) => ({
   itemType: itemDoc.itemType,
   imageUrl: itemDoc.imageUrl,
   status: itemDoc.status,
+  rejectionReason: itemDoc.rejectionReason || "",
   owner: itemDoc.owner
     ? {
         id: itemDoc.owner._id,
@@ -75,9 +76,29 @@ export const createItem = asyncHandler(async (req, res) => {
 });
 
 export const getAllItems = asyncHandler(async (req, res) => {
-  const { itemType, category } = req.query;
+  const { itemType, category, status } = req.query;
 
   const query = {};
+
+  const effectiveRole = req.user?.systemRole || req.user?.role || "user";
+  const canModerateItems = ["admin", "super-admin"].includes(effectiveRole);
+
+  if (!canModerateItems) {
+    query.status = "Approved";
+  } else if (status) {
+    const normalizedStatus = String(status).trim().toLowerCase();
+    const statusMap = {
+      pending: "Pending",
+      approved: "Approved",
+      rejected: "Rejected",
+    };
+
+    if (!statusMap[normalizedStatus]) {
+      throw new ApiError(400, "status filter must be Pending, Approved, or Rejected.");
+    }
+
+    query.status = statusMap[normalizedStatus];
+  }
 
   if (itemType) {
     const normalizedType = normalizeItemType(itemType);
@@ -103,7 +124,7 @@ export const getAllItems = asyncHandler(async (req, res) => {
 });
 
 export const getUserItems = asyncHandler(async (req, res) => {
-  const items = await Item.find({ owner: req.user._id })
+  const items = await Item.find({ owner: req.user._id, status: "Approved" })
     .sort({ createdAt: -1 })
     .populate("owner", "name email department")
     .lean();
@@ -116,13 +137,18 @@ export const getUserItems = asyncHandler(async (req, res) => {
 
 export const updateItemStatus = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body;
+  const { status, rejectionReason } = req.body;
 
   const normalizedStatus = String(status || "").trim().toLowerCase();
-  const nextStatus = normalizedStatus === "approved" ? "Approved" : normalizedStatus === "pending" ? "Pending" : null;
+  const statusMap = {
+    pending: "Pending",
+    approved: "Approved",
+    rejected: "Rejected",
+  };
+  const nextStatus = statusMap[normalizedStatus] || null;
 
   if (!nextStatus) {
-    throw new ApiError(400, "status must be either 'Approved' or 'Pending'.");
+    throw new ApiError(400, "status must be Pending, Approved, or Rejected.");
   }
 
   const item = await Item.findById(id).populate("owner", "name email department");
@@ -132,6 +158,11 @@ export const updateItemStatus = asyncHandler(async (req, res) => {
   }
 
   item.status = nextStatus;
+  if (nextStatus === "Rejected") {
+    item.rejectionReason = String(rejectionReason || "").trim();
+  } else {
+    item.rejectionReason = "";
+  }
   await item.save();
 
   res.status(200).json({
