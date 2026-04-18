@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import Match from "../models/Match.js";
+import Notification from "../models/Notification.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import { ApiError } from "../middleware/errorHandler.js";
 import { uploadBufferToCloudinary } from "../services/cloudinaryService.js";
@@ -116,5 +118,74 @@ export const deleteUserBySuperAdmin = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "User deleted successfully.",
+  });
+});
+
+export const getSuccessfulPosts = asyncHandler(async (req, res) => {
+  const currentUserId = String(req.user._id);
+
+  const matches = await Match.find({ status: "confirmed" })
+    .sort({ updatedAt: -1 })
+    .populate({
+      path: "lostItemId",
+      populate: { path: "owner", select: "name email department phone" },
+    })
+    .populate({
+      path: "foundItemId",
+      populate: { path: "owner", select: "name email department phone" },
+    })
+    .lean();
+
+  const notifications = await Notification.find({
+    userId: req.user._id,
+    type: "match_success",
+  })
+    .select("matchId message createdAt isRead")
+    .lean();
+
+  const notificationMap = new Map(
+    notifications.map((notification) => [String(notification.matchId), notification])
+  );
+
+  const ownMatches = matches.filter((match) => {
+    const lostOwnerId = String(match.lostItemId?.owner?._id || "");
+    const foundOwnerId = String(match.foundItemId?.owner?._id || "");
+    return lostOwnerId === currentUserId || foundOwnerId === currentUserId;
+  });
+
+  const data = ownMatches.map((match) => {
+    const lostOwnerId = String(match.lostItemId?.owner?._id || "");
+    const isLostOwner = lostOwnerId === currentUserId;
+    const ownItem = isLostOwner ? match.lostItemId : match.foundItemId;
+    const pairedItem = isLostOwner ? match.foundItemId : match.lostItemId;
+    const notification = notificationMap.get(String(match._id));
+
+    return {
+      id: match._id,
+      itemTitle: ownItem?.title || "Matched Item",
+      itemImageUrl: ownItem?.imageUrl || "",
+      ownItemType: ownItem?.itemType || "",
+      pairedItemTitle: pairedItem?.title || "",
+      pairedItemImageUrl: pairedItem?.imageUrl || "",
+      pairedItemType: pairedItem?.itemType || "",
+      otherUser: {
+        name: pairedItem?.owner?.name || "",
+        email: pairedItem?.owner?.email || "",
+        department: pairedItem?.owner?.department || "",
+        phone: pairedItem?.owner?.phone || "",
+      },
+      adminMessage:
+        notification?.message ||
+        match.adminMessage ||
+        "Your lost item has been successfully matched with a found item.",
+      matchDate: match.notifiedAt || notification?.createdAt || match.updatedAt || match.createdAt,
+      notificationRead: Boolean(notification?.isRead),
+      status: match.status,
+    };
+  });
+
+  res.status(200).json({
+    success: true,
+    data,
   });
 });

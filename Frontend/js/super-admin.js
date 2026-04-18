@@ -391,56 +391,93 @@ document.addEventListener("DOMContentLoaded", function () {
         matchingResults.innerHTML = `
             <div class="loading-indicator">
                 <div class="spinner"></div>
-                <p>Running matching algorithm...</p>
+                <p>Loading pending match suggestions...</p>
             </div>
         `;
 
         try {
-            const result = await apiRequest("/items", { method: "GET" });
-            const items = result.data || [];
-
-            const lostItems = items.filter((item) => item.itemType === "Lost");
-            const foundItems = items.filter((item) => item.itemType === "Found");
-            const matches = [];
-
-            lostItems.forEach((lost) => {
-                foundItems.forEach((found) => {
-                    const sameCategory = (lost.category || "") === (found.category || "");
-                    const sameLocation =
-                        (lost.location || "").toLowerCase().trim() === (found.location || "").toLowerCase().trim();
-
-                    if (sameCategory && sameLocation) {
-                        matches.push({ lost, found });
-                    }
-                });
-            });
+            const result = await apiRequest("/admin/matches", { method: "GET" });
+            const matches = result.data || [];
 
             if (matches.length === 0) {
                 matchingResults.innerHTML =
-                    '<p style="text-align: center; color: var(--gray-600);">No potential matches found</p>';
+                    '<p style="text-align: center; color: var(--gray-600);">No pending match suggestions found</p>';
                 return;
             }
 
             matchingResults.innerHTML = `
-                <h3 style="margin-bottom: 1rem; color: var(--success);">Found ${matches.length} potential match${matches.length > 1 ? "es" : ""}!</h3>
+                <h3 style="margin-bottom: 1rem; color: var(--success);">Pending Match Suggestions (${matches.length})</h3>
                 ${matches
                     .map(
                         (match) => `
                     <div class="match-card">
                         <h4>Potential Match</h4>
-                        <p><strong>Lost:</strong> ${match.lost.title} - ${match.lost.location}</p>
-                        <p><strong>Found:</strong> ${match.found.title} - ${match.found.location}</p>
-                        <button class="btn btn-primary btn-sm" style="margin-top: 0.5rem;">Notify Users</button>
+                        <p><strong>Lost:</strong> ${match.lostItem?.title || "N/A"} - ${match.lostItem?.location || "N/A"}</p>
+                        <p><strong>Found:</strong> ${match.foundItem?.title || "N/A"} - ${match.foundItem?.location || "N/A"}</p>
+                        <p><strong>Score:</strong> ${typeof match.score === "number" ? match.score.toFixed(2) : "N/A"}</p>
+                        <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap;">
+                            <button class="btn btn-primary btn-sm" onclick="notifyMatchUsers('${match.id}')">Notify Users</button>
+                            <button class="btn btn-danger btn-sm" onclick="rejectMatchSuggestion('${match.id}')">Reject</button>
+                        </div>
                     </div>
                 `
                     )
                     .join("")}
             `;
         } catch (error) {
-            matchingResults.innerHTML =
-                '<p style="text-align: center; color: var(--danger);">Failed to run matching algorithm.</p>';
+            matchingResults.innerHTML = `<p style="text-align: center; color: var(--danger);">${error.message || "Failed to load pending matches."}</p>`;
         }
     }
+
+    window.notifyMatchUsers = async function (matchId) {
+        const adminMessage = prompt(
+            "Enter success message for both users:",
+            "Your lost item has been successfully matched with a found item."
+        );
+
+        if (adminMessage === null) {
+            return;
+        }
+
+        const trimmedMessage = String(adminMessage).trim();
+        if (!trimmedMessage) {
+            if (typeof showMessage === "function") {
+                showMessage("Admin success message is required.", "error");
+            }
+            return;
+        }
+
+        try {
+            await apiRequest(`/admin/match/notify/${matchId}`, {
+                method: "PUT",
+                body: JSON.stringify({ adminMessage: trimmedMessage }),
+            });
+
+            if (typeof showMessage === "function") {
+                showMessage("Users notified successfully.", "success");
+            }
+
+            await runMatchingAlgorithm();
+        } catch (error) {
+            if (typeof showMessage === "function") {
+                showMessage(error.message || "Failed to notify users.", "error");
+            }
+        }
+    };
+
+    window.rejectMatchSuggestion = async function (matchId) {
+        try {
+            await apiRequest(`/admin/match/reject/${matchId}`, { method: "PUT" });
+            if (typeof showMessage === "function") {
+                showMessage("Match suggestion rejected.", "success");
+            }
+            await runMatchingAlgorithm();
+        } catch (error) {
+            if (typeof showMessage === "function") {
+                showMessage(error.message || "Failed to reject match.", "error");
+            }
+        }
+    };
 
     function getCategoryIcon(category) {
         const icons = {

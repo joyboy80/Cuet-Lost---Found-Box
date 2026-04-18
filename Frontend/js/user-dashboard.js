@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentUser = null;
     let userItems = [];
+    let successfulPosts = [];
 
     function getAuthToken() {
         return localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
@@ -132,6 +133,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return result.data || [];
     }
+
+    async function fetchSuccessfulPosts() {
+        const token = getAuthToken();
+        if (!token) {
+            throw new Error('Missing auth token. Please login again.');
+        }
+
+        const response = await fetch(`${API_BASE_URL}/user/successful-posts`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || 'Failed to load successful posts');
+        }
+
+        return result.data || [];
+    }
     
     // ==========================================
     // Calculate User Statistics
@@ -140,8 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const userLostItems = userItems.filter(item => item.itemType === 'Lost');
         const userFoundItems = userItems.filter(item => item.itemType === 'Found');
         
-        // Count matched items (status = matched)
-        const matchedItems = [...userLostItems, ...userFoundItems].filter(item => String(item.status || '').toLowerCase() === 'matched').length;
+        const matchedItems = successfulPosts.length;
         
         // Update UI
         document.getElementById('userLostItems').textContent = userLostItems.length;
@@ -154,6 +176,39 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('foundBadge').textContent = userFoundItems.length;
         
         return { userLostItems, userFoundItems };
+    }
+
+    function displaySuccessfulPosts() {
+        const successfulGrid = document.getElementById('successfulPostsGrid');
+        const noSuccessfulPosts = document.getElementById('noSuccessfulPosts');
+
+        if (!successfulGrid || !noSuccessfulPosts) {
+            return;
+        }
+
+        if (!successfulPosts.length) {
+            successfulGrid.style.display = 'none';
+            noSuccessfulPosts.style.display = 'flex';
+            return;
+        }
+
+        successfulGrid.style.display = 'grid';
+        noSuccessfulPosts.style.display = 'none';
+
+        successfulGrid.innerHTML = successfulPosts
+            .map((post) => `
+                <article class="successful-post-card">
+                    ${post.itemImageUrl ? `<img src="${post.itemImageUrl}" alt="${post.itemTitle || 'Matched Item'}" class="successful-post-image">` : ''}
+                    <h3>${post.itemTitle || 'Matched Item'}</h3>
+                    <p class="successful-post-message">${post.adminMessage || 'Your lost item has been successfully matched with a found item.'}</p>
+                    <p class="successful-post-message" style="margin-bottom: 0.5rem;"><strong>Matched With:</strong> ${post.otherUser?.name || 'N/A'}</p>
+                    <p class="successful-post-date">📧 ${post.otherUser?.email || 'N/A'}</p>
+                    <p class="successful-post-date">📞 ${post.otherUser?.phone || 'N/A'}</p>
+                    <p class="successful-post-date">🏫 ${post.otherUser?.department || 'N/A'}</p>
+                    <p class="successful-post-date">📅 ${formatDate(post.matchDate)}</p>
+                </article>
+            `)
+            .join('');
     }
     
     // ==========================================
@@ -405,7 +460,9 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             currentUser = await fetchUserProfile();
             userItems = await fetchUserItems();
+            successfulPosts = await fetchSuccessfulPosts();
             displayUserInfo();
+            displaySuccessfulPosts();
             displayReports();
         } catch (error) {
             showMessage(error.message || 'Failed to load dashboard profile.', 'error');

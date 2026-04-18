@@ -623,6 +623,64 @@
     font-weight: 600;
 }
 
+/* Successful Posts Section */
+.successful-posts-section {
+    margin-bottom: var(--spacing-3xl);
+}
+
+.successful-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.successful-post-card {
+    background: linear-gradient(135deg, rgba(30, 30, 50, 0.8) 0%, rgba(40, 40, 70, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding: var(--spacing-xl);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.successful-post-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(102, 126, 234, 0.3);
+    border-color: rgba(167, 139, 250, 0.6);
+}
+
+.successful-post-card h3 {
+    color: #ffffff;
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(167, 139, 250, 0.5);
+}
+
+.successful-post-image {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.successful-post-message {
+    color: #ffffff;
+    opacity: 0.95;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+.successful-post-date {
+    color: #ffffff;
+    opacity: 0.9;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 /* My Reports Section */
 .my-reports-section {
     margin-bottom: var(--spacing-3xl);

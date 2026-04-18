@@ -7,11 +7,13 @@ import {
   listUsersForSuperAdmin,
   updateUserStatus,
   deleteUserBySuperAdmin,
+  getSuccessfulPosts,
 } from "../controllers/userController.js";
 
 const router = express.Router();
 
 router.get("/profile", protect, getProfile);
+router.get("/successful-posts", protect, getSuccessfulPosts);
 router.post("/upload-avatar", protect, upload.single("profileImage"), uploadAvatar);
 router.get("/admin/users", protect, authorize("super-admin"), listUsersForSuperAdmin);
 router.patch("/admin/users/:id/status", protect, authorize("super-admin"), updateUserStatus);

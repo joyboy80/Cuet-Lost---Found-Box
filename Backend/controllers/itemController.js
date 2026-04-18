@@ -2,6 +2,7 @@ import Item from "../models/Item.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import { ApiError } from "../middleware/errorHandler.js";
 import { uploadBufferToCloudinary } from "../services/cloudinaryService.js";
+import { findMatchesForItem } from "../services/matchmakingService.js";
 
 const normalizeItemType = (value = "") => {
   const lowered = String(value).trim().toLowerCase();
@@ -157,6 +158,8 @@ export const updateItemStatus = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Item not found.");
   }
 
+  const previousStatus = item.status;
+
   item.status = nextStatus;
   if (nextStatus === "Rejected") {
     item.rejectionReason = String(rejectionReason || "").trim();
@@ -164,6 +167,10 @@ export const updateItemStatus = asyncHandler(async (req, res) => {
     item.rejectionReason = "";
   }
   await item.save();
+
+  if (previousStatus !== "Approved" && nextStatus === "Approved") {
+    await findMatchesForItem(item);
+  }
 
   res.status(200).json({
     success: true,
