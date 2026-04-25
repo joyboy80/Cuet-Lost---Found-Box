@@ -86,9 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Backend Item Data
 // ==========================================
 const MAIN_API_BASE_URL =
-    ['localhost', '127.0.0.1'].includes(window.location.hostname)
-        ? `${window.location.protocol}//${window.location.hostname}:5000/api`
-        : 'http://localhost:5000/api';
+    'https://cuet-lost-found-box.onrender.com/api';
 let liveItems = [];
 
 function getAuthToken() {

@@ -4,11 +4,7 @@
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', function () {
-    const API_BASE_URL = (window.API_BASE_URL)
-        ? window.API_BASE_URL
-        : ['localhost', '127.0.0.1'].includes(window.location.hostname)
-            ? `${window.location.protocol}//${window.location.hostname}:5000/api`
-            : `${window.location.origin}/api`;
+    const API_BASE_URL = 'https://cuet-lost-found-box.onrender.com/api';
 
     let adminItems = [];
     let currentTab = 'pending';
