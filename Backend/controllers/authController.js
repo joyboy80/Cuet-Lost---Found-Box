@@ -57,7 +57,7 @@ const setAuthCookie = (res, token) => {
 };
 
 const sendVerificationEmail = async (userEmail, name) => {
-  const url = 'http://localhost:5001/api/verify-email';
+  const url = 'https://cuet-lost-found-box-1.onrender.com/api/verify-email';
 
   const requestOptions = {
     method: 'POST',
