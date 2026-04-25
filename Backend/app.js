@@ -19,6 +19,7 @@ const defaultOrigins = [
   "http://localhost:5500",
   "http://127.0.0.1:5000",
   "http://localhost:5000",
+  "https://cuet-lost-found-box-hr9o.vercel.app"
 ];
 
 const envOrigins = (process.env.CORS_ORIGIN || "")
