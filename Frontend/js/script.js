@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://cuet-lost-found-box.onrender.com/api";
+const API_BASE_URL = "https://cuet-lost-found-box-1.onrender.com/api";
 
 function getRedirectPathByRole(role) {
   if (role === "admin" || role === "super-admin") {
