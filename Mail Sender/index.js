@@ -3,7 +3,6 @@ import nodemailer from 'nodemailer';
 import 'dotenv/config';
 //hello
 //hello
-//hello
 const app = express();
 
 const allowedOrigins = new Set([
