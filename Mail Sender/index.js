@@ -34,7 +34,9 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Configure the Brevo Transporter
-const transporter = nodemailer.createTransport({
+
+app.post('/api/verify-email', async (req, res) => {
+  const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
   port: 465, // Using 465 to avoid the common 587 university blocks
   secure: true,
@@ -43,8 +45,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.BREVO_PASS,
   },
 });
-
-app.post('/api/verify-email', async (req, res) => {
   const { email, userName } = req.body;
 
   if (!email) {
@@ -56,7 +56,7 @@ app.post('/api/verify-email', async (req, res) => {
 
   try {
     // 2. Send the Email
-    await transporter.verify();
+    // await transporter.verify();
     const result = await transporter.sendMail({
       from: `"CUET Box Verification" <${process.env.SENDER_EMAIL}>`,
       to: email,
