@@ -11,6 +11,7 @@ const allowedOrigins = new Set([
   'http://localhost:5000',
   'https://cuet-lost-found-box.onrender.com',
   'https://cuet-lost-found-box-1.onrender.com'
+  'https://cuet-lost-found-box-production.up.railway.app'
 ]);
 
 app.use((req, res, next) => {
