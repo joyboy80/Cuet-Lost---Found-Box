@@ -56,7 +56,8 @@ app.post('/api/verify-email', async (req, res) => {
 
   try {
     // 2. Send the Email
-    await transporter.sendMail({
+    await transporter.verify();
+    const result = await transporter.sendMail({
       from: `"CUET Box Verification" <${process.env.SENDER_EMAIL}>`,
       to: email,
       subject: "Verify your CUET Lost & Found Account",
@@ -72,6 +73,7 @@ app.post('/api/verify-email', async (req, res) => {
         </div>
       `,
     });
+    console.log(result);
 
     // 3. Return success (and the OTP so your main backend can save/verify it)
     res.status(200).json({ 
