@@ -39,7 +39,7 @@ app.use(express.json());
 // Configure the Brevo Transporter
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
-  port: 465, // Using 465 to avoid the common 587 university blocks
+  port: 587, // Using 465 to avoid the common 587 university blocks
   secure: true,
   auth: {
     user: process.env.BREVO_USER,
